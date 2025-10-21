@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_element_area_values",
+  "info": {
+    "displayName": "AreaValues",
+    "description": "Значения площадей для единицы и всего количества"
+  },
+  "attributes": {
+    "single": {
+      "type": "decimal",
+      "description": "Для 1 шт [м²]"
+    },
+    "total": {
+      "type": "decimal",
+      "description": "Для всех [м²]"
+    }
+  }
+}

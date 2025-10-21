@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_element_fire_protection_areas",
+  "info": {
+    "displayName": "FireProtectionAreas",
+    "description": "Площади огнезащиты по разным пределам"
+  },
+  "attributes": {
+    "r15": {
+      "type": "component",
+      "component": "element.area-values"
+    },
+    "r45": {
+      "type": "component",
+      "component": "element.area-values"
+    },
+    "r60": {
+      "type": "component",
+      "component": "element.area-values"
+    },
+    "r90": {
+      "type": "component",
+      "component": "element.area-values"
+    },
+    "r120": {
+      "type": "component",
+      "component": "element.area-values"
+    }
+  }
+}

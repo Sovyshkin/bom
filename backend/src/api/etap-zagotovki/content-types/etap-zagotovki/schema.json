@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "etap_zagotovkis",
+  "info": {
+    "singularName": "etap-zagotovki",
+    "pluralName": "etap-zagotovkis",
+    "displayName": "Этап Заготовки"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "status_work": {
+      "type": "string"
+    },
+    "who": {
+      "type": "string"
+    },
+    "start": {
+      "type": "datetime"
+    },
+    "finish": {
+      "type": "datetime"
+    },
+    "stageId": {
+      "type": "string"
+    }
+  }
+}

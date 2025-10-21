@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proekts",
+  "info": {
+    "singularName": "proekt",
+    "pluralName": "proekts",
+    "displayName": "Проект"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "tech_card": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "status_work": {
+      "type": "string"
+    },
+    "hasTechCard": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

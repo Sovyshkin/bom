@@ -1,0 +1,165 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tech-card-elements",
+  "info": {
+    "singularName": "element-tehkarty",
+    "pluralName": "element-tehkarties", 
+    "displayName": "Элемент техкарты",
+    "description": "Элементы из технологических карт"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "proektId": {
+      "type": "string"
+    },
+    "shippingMark": {
+      "type": "string",
+      "displayName": "Отправочная марка"
+    },
+    "markName": {
+      "type": "string", 
+      "displayName": "Наименование марки"
+    },
+    "partPosition": {
+      "type": "string",
+      "displayName": "Позиция детали"
+    },
+    "material": {
+      "type": "string",
+      "displayName": "Материал"
+    },
+    "quantity": {
+      "type": "integer",
+      "displayName": "Количество"
+    },
+    "profile": {
+      "type": "string",
+      "displayName": "Профиль"
+    },
+    "length": {
+      "type": "decimal",
+      "displayName": "Длина, мм"
+    },
+    "width": {
+      "type": "decimal", 
+      "displayName": "Ширина, мм"
+    },
+    "height": {
+      "type": "decimal",
+      "displayName": "Высота, мм"
+    },
+    "flangeThickness": {
+      "type": "decimal",
+      "displayName": "Толщина полки, мм"
+    },
+    "wallThickness": {
+      "type": "decimal",
+      "displayName": "Толщина стенки, мм" 
+    },
+    "steelGrade": {
+      "type": "string",
+      "displayName": "Марка стали"
+    },
+    "crossSectionArea": {
+      "type": "decimal",
+      "displayName": "Площадь поперечного сечения, мм²"
+    },
+    "sectionPerimeter": {
+      "type": "decimal",
+      "displayName": "Периметр сечения, мм"
+    },
+    "straightCutLength": {
+      "type": "decimal",
+      "displayName": "Длина прямого реза, мм"
+    },
+    "shapedElementsCount": {
+      "type": "integer",
+      "displayName": "Кол. фасон. эл-ов на 1 марку, шт"
+    },
+    "shapedElementsWeight": {
+      "type": "decimal",
+      "displayName": "Средний вес фасон. эл-ов на 1 марку, кг"
+    },
+    "netWeightSingle": {
+      "type": "decimal",
+      "displayName": "Чистый вес 1 дет., кг"
+    },
+    "netWeightTotal": {
+      "type": "decimal", 
+      "displayName": "Чистый вес всех дет., кг"
+    },
+    "grossWeightSingle": {
+      "type": "decimal",
+      "displayName": "Вес брутто 1 дет., кг"
+    },
+    "grossWeightTotal": {
+      "type": "decimal",
+      "displayName": "Вес брутто всех дет., кг"
+    },
+    "millingNetWeightSingle": {
+      "type": "decimal",
+      "displayName": "Масса (Фрезировки_нетто) 1 дет., кг"
+    },
+    "millingNetWeightTotal": {
+      "type": "decimal",
+      "displayName": "Масса (Фрезировки_нетто) всех дет., кг"
+    },
+    "millingGrossWeightSingle": {
+      "type": "decimal",
+      "displayName": "Масса (Фрезировки_брутто) 1 дет., кг"
+    },
+    "millingGrossWeightTotal": {
+      "type": "decimal",
+      "displayName": "Масса (Фрезировки_брутто) всех дет., кг"
+    },
+    "coatingAreaSingle": {
+      "type": "decimal",
+      "displayName": "Площадь покрытия 1 дет., м²"
+    },
+    "coatingAreaTotal": {
+      "type": "decimal",
+      "displayName": "Площадь покрытия всех дет., м²"
+    },
+    "layoutAreaSingle": {
+      "type": "decimal",
+      "displayName": "Площадь раскладки 1 дет., м²"
+    },
+    "layoutAreaTotal": {
+      "type": "decimal",
+      "displayName": "Площадь раскладки всех дет., м²"
+    },
+    "paintConsumptionSingle": {
+      "type": "decimal",
+      "displayName": "Расход краски 1 дет., кг"
+    },
+    "paintConsumptionTotal": {
+      "type": "decimal",
+      "displayName": "Расход краски всех дет., кг"
+    },
+    "holeDiameter": {
+      "type": "decimal",
+      "displayName": "Диаметр отверстия, мм"
+    },
+    "holesPerPart": {
+      "type": "integer",
+      "displayName": "Кол-во отверстий в 1 дет."
+    },
+    "holesTotal": {
+      "type": "integer", 
+      "displayName": "Кол-во отверстий всего, шт"
+    },
+    "removedVolumeSingle": {
+      "type": "decimal",
+      "displayName": "Удаляемый объем 1 дет., мм³"
+    },
+    "removedVolumeTotal": {
+      "type": "decimal",
+      "displayName": "Удаляемый объем всех дет., мм³"
+    }
+  }
+}

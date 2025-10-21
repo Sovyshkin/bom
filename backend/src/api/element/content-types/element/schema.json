@@ -1,0 +1,120 @@
+{
+  "kind": "collectionType",
+  "collectionName": "elements",
+  "info": {
+    "singularName": "element",
+    "pluralName": "elements",
+    "displayName": "Элемент",
+    "description": "Элементы конструкции"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "orderNumber": {
+      "type": "string",
+      "required": true
+    },
+    "operation": {
+      "type": "string"
+    },
+    "rowAndAxis": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "dimensions": {
+      "type": "string"
+    },
+    "mainParameter": {
+      "type": "string"
+    },
+    "number": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "weightNetSingle": {
+      "type": "decimal"
+    },
+    "weightNetTotal": {
+      "type": "decimal"
+    },
+    "weightWeldingSingle": {
+      "type": "decimal"
+    },
+    "weightWeldingTotal": {
+      "type": "decimal"
+    },
+    "weightTotalSingle": {
+      "type": "decimal"
+    },
+    "weightTotalTotal": {
+      "type": "decimal"
+    },
+    "coatingType": {
+      "type": "string"
+    },
+    "ralFinish": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "string"
+    },
+    "areaTotalSingle": {
+      "type": "decimal"
+    },
+    "areaTotalTotal": {
+      "type": "decimal"
+    },
+    "areaUnroundedSingle": {
+      "type": "decimal"
+    },
+    "areaUnroundedTotal": {
+      "type": "decimal"
+    },
+    "areaAkzSingle": {
+      "type": "decimal"
+    },
+    "areaAkzTotal": {
+      "type": "decimal"
+    },
+    "areaFireProtection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "element.fire-protection-areas"
+    },
+    "areaFireProtectionPrimer": {
+      "type": "component",
+      "repeatable": false,
+      "component": "element.fire-protection-areas"
+    },
+    "mainElementLength": {
+      "type": "decimal"
+    },
+    "weightPerMeter": {
+      "type": "decimal"
+    },
+    "constructionType": {
+      "type": "string"
+    },
+    "structure": {
+      "type": "string"
+    },
+    "proektId": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string"
+    }
+  }
+}
