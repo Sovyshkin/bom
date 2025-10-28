@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Устанавливаем базовый URL для API
-axios.defaults.baseURL = 'http://localhost:1337/api';
+// axios.defaults.baseURL = 'http://localhost:1337/api'; 
+axios.defaults.baseURL = 'http://87.236.23.19:1337/api';
 
 // Настройка interceptor для автоматической обработки истечения токенов
 let isRefreshing = false;
