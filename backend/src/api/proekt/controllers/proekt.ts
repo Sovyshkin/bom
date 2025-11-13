@@ -48,7 +48,7 @@ module.exports = {
 
       // Определяем этапы по порядку
       const stages = [
-        { name: 'Наличие', order: 0, status: 'Нет' },
+        { name: 'Наличие', order: 0, status: 'Не начат' },
         { name: 'Заготовка', order: 1, status: 'Не начат' },
         { name: 'Комплектовка', order: 2, status: 'Не начат' },
         { name: 'Сборка', order: 3, status: 'Не начат' },
@@ -70,6 +70,10 @@ module.exports = {
       let stagesCreatedCount = 0;
       let substagesCreatedCount = 0;
       const errors = [];
+
+      console.log(`Starting to process ${data.elements.length} elements`);
+      console.log('Stages to create for each element:', stages.map(s => s.name));
+      console.log('Substages for Заготовка:', zagotovkaSubstages.map(s => s.name));
 
       for (const element of data.elements) {
         try {
@@ -133,7 +137,7 @@ module.exports = {
               const stageData = {
                 name: stage.name,
                 order: stage.order,
-                status: stage.status,
+                status: (stage.status as "Не начат" | "В работе" | "Готов") || "Не начат",
                 elementId: createdElement.id.toString(), // Используем elementId как строку
                 publishedAt: new Date(), // Публикуем сразу
               };
@@ -158,7 +162,7 @@ module.exports = {
                     const substageData = {
                       name: substage.name,
                       order: substage.order,
-                      status: substage.status,
+                      status: (substage.status as "Не начат" | "В работе" | "Готов") || "Не начат",
                       stageId: zagotovkaStageId.toString(), // Привязываем к этапу Заготовка
                       publishedAt: new Date(), // Публикуем сразу
                     };
@@ -201,7 +205,15 @@ module.exports = {
         }
       }
 
-      console.log(`Successfully created ${createdCount} elements, ${stagesCreatedCount} stages and ${substagesCreatedCount} substages`);
+      console.log(`\n=== CREATION SUMMARY ===`);
+      console.log(`Elements processed: ${data.elements.length}`);
+      console.log(`Elements created: ${createdCount}`);
+      console.log(`Stages created: ${stagesCreatedCount}`);
+      console.log(`Substages created: ${substagesCreatedCount}`);
+      console.log(`Expected stages per element: ${stages.length}`);
+      console.log(`Expected total stages: ${createdCount * stages.length}`);
+      console.log(`Expected substages per Zaготовка: ${zagotovkaSubstages.length}`);
+      console.log(`========================\n`);
       
       if (errors.length > 0) {
         console.log('Errors during creation:', errors);
@@ -327,7 +339,7 @@ module.exports = {
 
       // Определяем этапы по порядку
       const stages = [
-        { name: 'Наличие', order: 0, status: 'Нет' },
+        { name: 'Наличие', order: 0, status: 'Не начат' },
         { name: 'Заготовка', order: 1, status: 'Не начат' },
         { name: 'Комплектовка', order: 2, status: 'Не начат' },
         { name: 'Сборка', order: 3, status: 'Не начат' },
@@ -412,7 +424,7 @@ module.exports = {
               const stageData = {
                 name: stage.name,
                 order: stage.order,
-                status: stage.status,
+                status: (stage.status as "Не начат" | "В работе" | "Готов") || "Не начат",
                 elementId: createdElement.id.toString(),
                 publishedAt: new Date(),
               };
@@ -437,7 +449,7 @@ module.exports = {
                     const substageData = {
                       name: substage.name,
                       order: substage.order,
-                      status: substage.status,
+                      status: (substage.status as "Не начат" | "В работе" | "Готов") || "Не начат",
                       stageId: zagotovkaStageId.toString(),
                       publishedAt: new Date(),
                     };
@@ -510,7 +522,7 @@ module.exports = {
     try {
       const projects = await strapi.entityService.findMany('api::proekt.proekt', {
         sort: { createdAt: 'desc' },
-        fields: ['id', 'name', 'createdAt', 'updatedAt', 'status_work', 'hasTechCard'],
+        fields: ['id', 'name', 'createdAt', 'updatedAt', 'status_work', 'hasTechCard', 'etap'],
       });
 
       return ctx.send({
@@ -572,7 +584,7 @@ module.exports = {
 
       // Определяем этапы по порядку
       const stages = [
-        { name: 'Наличие', order: 0, status: 'Нет' },
+        { name: 'Наличие', order: 0, status: 'Не начат' },
         { name: 'Заготовка', order: 1, status: 'Не начат' },
         { name: 'Комплектовка', order: 2, status: 'Не начат' },
         { name: 'Сборка', order: 3, status: 'Не начат' },
@@ -615,7 +627,7 @@ module.exports = {
             const stageData = {
               name: stage.name,
               order: stage.order,
-              status: stage.status,
+              status: (stage.status as "Не начат" | "В работе" | "Готов") || "Не начат",
               elementId: element.id.toString(),
               publishedAt: new Date(), // Публикуем сразу
             };
@@ -639,7 +651,7 @@ module.exports = {
                   const substageData = {
                     name: substage.name,
                     order: substage.order,
-                    status: substage.status,
+                    status: (substage.status as "Не начат" | "В работе" | "Готов") || "Не начат",
                     stageId: zagotovkaStageId.toString(),
                     publishedAt: new Date(), // Публикуем сразу
                   };

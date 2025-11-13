@@ -115,6 +115,11 @@
     },
     "stage": {
       "type": "string"
+    },
+    "status_work": {
+      "type": "enumeration",
+      "enum": ["Не начат", "В работе", "Готов"],
+      "default": "Не начат"
     }
   }
 }

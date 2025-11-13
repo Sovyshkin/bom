@@ -135,7 +135,7 @@ const filteredParts = computed(() => {
 
   // Фильтрация по статусу
   if (statusFilter.value !== "all") {
-    filtered = filtered.filter((part) => part.status === statusFilter.value);
+    filtered = filtered.filter((part) => (part.status || part.status_work) === statusFilter.value);
   }
 
   // Фильтрация по этапу
@@ -1019,10 +1019,10 @@ onMounted(() => {
             <span
               :class="[
                 'status-badge',
-                getStatusClass(part.status),
+                getStatusClass(part.status || part.status_work),
               ]"
             >
-              {{ part.status || 'Не указан' }}
+              {{ part.status || part.status_work || 'Не указан' }}
             </span>
           </div>
           <div class="part-cell techcard-cell" @click="viewPartDetails(part.id)">
@@ -1072,10 +1072,10 @@ onMounted(() => {
             <span
               :class="[
                 'status-badge',
-                getStatusClass(part.status),
+                getStatusClass(part.status || part.status_work),
               ]"
             >
-              {{ part.status || 'Не указан' }}
+              {{ part.status || part.status_work || 'Не указан' }}
             </span>
           </div>
 
@@ -1376,7 +1376,8 @@ h1 {
   color: #ef5307;
 }
 
-.status-badge.готов {
+.status-badge.готов,
+.status-badge.готово {
   background: rgba(8, 184, 29, 0.1);
   color: #08b81d;
 }

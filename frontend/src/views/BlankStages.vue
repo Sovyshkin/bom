@@ -18,6 +18,29 @@ const getStatusClass = (status) => {
   return status.toLowerCase().replace(' ', '-');
 };
 
+// Функция для форматирования даты и времени
+const formatDate = (dateString) => {
+  if (!dateString || dateString === '-- -- ----') return '-- -- ----'
+  
+  try {
+    const date = new Date(dateString)
+    
+    // Проверяем, что дата валидна
+    if (isNaN(date.getTime())) return '-- -- ----'
+    
+    return date.toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    return '-- -- ----'
+  }
+};
+
 const filteredStages = computed(() => {
   let filtered = mainStore.blankStages || [];
 
@@ -96,7 +119,6 @@ onMounted(() => {
           <div class="header-cell">Взял в работу</div>
           <div class="header-cell">Закончил</div>
           <div class="header-cell">Статус</div>
-          <div class="header-cell"></div>
         </div>
 
         <div 
@@ -108,8 +130,8 @@ onMounted(() => {
           <div class="stage-cell name-cell">{{ stage.name || 'Без названия' }}</div>
           <div class="stage-cell executor-cell">{{ stage.executor || 'Не назначен' }}</div>
           <div class="stage-cell stage-name-cell">{{ stage.stage || 'Не указан' }}</div>
-          <div class="stage-cell start-cell">{{ stage.start || '-- -- ----' }}</div>
-          <div class="stage-cell finish-cell">{{ stage.finish || '-- -- ----' }}</div>
+          <div class="stage-cell start-cell">{{ formatDate(stage.start) }}</div>
+          <div class="stage-cell finish-cell">{{ formatDate(stage.finish) }}</div>
           <div class="stage-cell status-cell">
             <span
               :class="[
@@ -119,23 +141,6 @@ onMounted(() => {
             >
               {{ stage.status || 'Не начат' }}
             </span>
-          </div>
-          <div class="stage-cell arrow-cell">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6 12L10 8L6 4"
-                stroke="#8C93A6"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
           </div>
         </div>
       </div>
@@ -163,8 +168,8 @@ onMounted(() => {
           <div class="card-content">
             <p class="stage-executor">Исполнитель: {{ stage.executor || 'Не назначен' }}</p>
             <p class="stage-stage">Этап: {{ stage.stage || 'Не указан' }}</p>
-            <p class="stage-start">Взял в работу: {{ stage.start || '-- -- ----' }}</p>
-            <p class="stage-finish">Закончил: {{ stage.finish || '-- -- ----' }}</p>
+            <p class="stage-start">Взял в работу: {{ formatDate(stage.start) }}</p>
+            <p class="stage-finish">Закончил: {{ formatDate(stage.finish) }}</p>
 
             <div class="card-actions">
               <button class="action-btn view-details-btn">
@@ -353,6 +358,7 @@ h1 {
   color: #ef5307;
 }
 
+.status-badge.готов,
 .status-badge.готово {
   background: rgba(8, 184, 29, 0.1);
   color: #08b81d;

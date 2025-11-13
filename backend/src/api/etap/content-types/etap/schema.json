@@ -28,6 +28,30 @@
     },
     "elementId": {
       "type": "string"
+    },
+    "startedBy": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "finishedBy": {
+      "type": "relation",
+      "relation": "manyToOne", 
+      "target": "plugin::users-permissions.user"
+    },
+    "startedAt": {
+      "type": "datetime"
+    },
+    "finishedAt": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Не начат", "В работе", "Готов"],
+      "default": "Не начат"
+    },
+    "order": {
+      "type": "integer"
     }
   }
 }

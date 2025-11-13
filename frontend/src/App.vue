@@ -3,12 +3,11 @@ import AppHeader from "./components/AppHeader.vue";
 import AppLoader from './components/AppLoader.vue'
 import AppNotifications from './components/AppNotifications.vue'
 import { useMainStore } from "./stores/main.ts";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import { onMounted } from "vue";
 
 const mainStore = useMainStore();
 const route = useRoute()
-const router = useRouter();
 
 // Инициализируем авторизацию при запуске приложения
 console.log('Initializing app, calling initializeAuth...');
@@ -20,53 +19,9 @@ onMounted(() => {
   console.log('App mounted, current route:', route.name);
 });
 
-router.beforeEach(async (to, from, next) => {
-  console.log('Router beforeEach triggered:', { 
-    toName: to.name, 
-    fromName: from.name, 
-    isAuthenticated: mainStore.isAuthenticated 
-  });
-  
-  mainStore.isLoading = true;
-  
-  // Список маршрутов, которые не требуют авторизации
-  const publicRoutes = ['login', 'email_verify'];
-  
-  // Если маршрут не требует авторизации, пропускаем
-  if (publicRoutes.includes(to.name)) {
-    console.log('Public route, allowing access');
-    // Если пользователь авторизован и пытается зайти на login, редиректим на главную
-    if (to.name === 'login' && mainStore.isAuthenticated) {
-      console.log('Authenticated user trying to access login, redirecting to proekts');
-      next({ name: 'proekts' });
-      return;
-    }
-    next();
-  } else {
-    // Проверяем авторизацию для защищенных маршрутов
-    if (!mainStore.isAuthenticated) {
-      console.log('User not authenticated, redirecting to login');
-      next({ name: 'login' });
-    } else {
-      // Проверяем валидность токена
-      if (!mainStore.isTokenValid()) {
-        console.log('Token invalid, trying to refresh');
-        const refreshed = await mainStore.refreshAccessToken();
-        if (!refreshed) {
-          console.log('Token refresh failed, redirecting to login');
-          next({ name: 'login' });
-          return;
-        }
-        console.log('Token refreshed successfully');
-      }
-      console.log('User authenticated, allowing access');
-      next();
-    }
-  }
-
-  setTimeout(() => {
-    mainStore.isLoading = false;
-  }, 500);
+// Логика авторизации перенесена в router.js
+onMounted(() => {
+  mainStore.isLoading = false;
 });
 </script>
 <template>

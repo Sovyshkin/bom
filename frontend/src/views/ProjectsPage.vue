@@ -131,6 +131,7 @@ onMounted(() => {
         <div class="projects-header">
           <div class="header-cell">Название проекта</div>
           <div class="header-cell">Номер</div>
+          <div class="header-cell">Этап</div>
           <div class="header-cell">Статус</div>
           <div class="header-cell">Действия</div>
           <div class="header-cell"></div>
@@ -144,6 +145,7 @@ onMounted(() => {
         >
           <div class="project-cell name-cell">{{ project.name }}</div>
           <div class="project-cell number-cell">{{ project.id }}</div>
+          <div class="project-cell etap-cell">{{ project.etap || 'Не начат' }}</div>
           <div class="project-cell status-cell">
             <span
               :class="[
@@ -201,6 +203,7 @@ onMounted(() => {
 
           <div class="card-content">
             <p class="project-number">Номер: {{ project.id }}</p>
+            <p class="project-stage">Этап: {{ project.etap || 'Не начат' }}</p>
 
             <div class="card-actions">
               <button
@@ -378,7 +381,8 @@ h1 {
   font-size: 14px;
 }
 
-.status-badge.готов {
+.status-badge.готов,
+.status-badge.готово {
   background: rgba(8, 184, 29, 0.1);
   color: #08B81D;
   font-weight: 500;
@@ -436,6 +440,11 @@ h1 {
 }
 
 .project-number {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.project-stage {
   color: #666;
   margin-bottom: 15px;
 }

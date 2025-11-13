@@ -167,6 +167,13 @@ export const useMainStore = defineStore(
         
         if (response.data.jwt) {
           setTokens(response.data.jwt, response.data.refreshToken || refreshToken.value);
+          
+          // Если в ответе есть обновленные данные пользователя, сохраняем их
+          if (response.data.user) {
+            user.value = response.data.user;
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+          }
+          
           return true;
         }
         return false;
@@ -208,10 +215,13 @@ export const useMainStore = defineStore(
       
       console.log('Initializing auth:', { savedJwt: !!savedJwt, savedRefreshToken: !!savedRefreshToken, savedUser });
       
-      if (savedJwt && savedRefreshToken && savedExpiration) {
+      if (savedJwt && savedRefreshToken) {
         jwt.value = savedJwt;
         refreshToken.value = savedRefreshToken;
-        tokenExpiration.value = parseInt(savedExpiration);
+        
+        if (savedExpiration) {
+          tokenExpiration.value = parseInt(savedExpiration);
+        }
         
         if (savedUser) {
           try {
@@ -223,21 +233,12 @@ export const useMainStore = defineStore(
           }
         }
         
-        // Проверяем действительность токена
-        if (isTokenValid()) {
-          isAuthenticated.value = true;
-          axios.defaults.headers.common['Authorization'] = `Bearer ${savedJwt}`;
-          console.log('User authenticated successfully');
-        } else {
-          console.log('Token expired, trying to refresh');
-          // Пытаемся обновить токен без показа ошибок
-          refreshAccessToken().then(success => {
-            if (!success) {
-              console.log('Token refresh failed, user will need to login again');
-              isAuthenticated.value = false;
-            }
-          });
-        }
+        // Устанавливаем токен в axios
+        axios.defaults.headers.common['Authorization'] = `Bearer ${savedJwt}`;
+        
+        // Считаем пользователя авторизованным, токен проверится в нужном месте
+        isAuthenticated.value = true;
+        console.log('User state restored from localStorage');
       } else {
         console.log('No saved tokens found');
       }

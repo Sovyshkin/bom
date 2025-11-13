@@ -28,6 +28,14 @@
     },
     "stageId": {
       "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Не начат", "В работе", "Готов"],
+      "default": "Не начат"
     }
   }
 }

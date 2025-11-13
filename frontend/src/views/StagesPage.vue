@@ -26,12 +26,35 @@ const getStatusClass = (status) => {
   return status.toLowerCase().replace(' ', '-');
 };
 
+// Функция для форматирования даты и времени
+const formatDate = (dateString) => {
+  if (!dateString || dateString === '-- -- ----') return '-- -- ----'
+  
+  try {
+    const date = new Date(dateString)
+    
+    // Проверяем, что дата валидна
+    if (isNaN(date.getTime())) return '-- -- ----'
+    
+    return date.toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    return '-- -- ----'
+  }
+};
+
 const filteredStages = computed(() => {
   let filtered = mainStore.stages || [];
 
   // Фильтрация по статусу
   if (statusFilter.value !== "all") {
-    filtered = filtered.filter((stage) => stage.status === statusFilter.value);
+    filtered = filtered.filter((stage) => (stage.status || stage.status_work) === statusFilter.value);
   }
 
   // Поиск
@@ -40,8 +63,8 @@ const filteredStages = computed(() => {
     filtered = filtered.filter(
       (stage) =>
         stage.name?.toLowerCase().includes(query) ||
-        stage.executor?.toLowerCase().includes(query) ||
-        stage.stage?.toLowerCase().includes(query)
+        stage.who?.toLowerCase().includes(query) ||
+        (stage.status || stage.status_work)?.toLowerCase().includes(query)
     );
   }
 
@@ -125,22 +148,26 @@ onMounted(() => {
           @click="viewStageDetails(stage.id, stage.name)"
         >
           <div class="stage-cell name-cell">{{ stage.name || 'Без названия' }}</div>
-          <div class="stage-cell executor-cell">{{ stage.executor || 'Не назначен' }}</div>
-          <div class="stage-cell stage-name-cell">{{ stage.stage || 'Не указан' }}</div>
-          <div class="stage-cell start-cell">{{ stage.start || '-- -- ----' }}</div>
-          <div class="stage-cell finish-cell">{{ stage.finish || '-- -- ----' }}</div>
+          <div class="stage-cell executor-cell">{{ stage.who || 'Не назначен' }}</div>
+          <div class="stage-cell stage-name-cell">
+            <span v-if="stage.name === 'Заготовка'">{{ stage.status || stage.status_work || 'Не начат' }}</span>
+            <span v-else>—</span>
+          </div>
+          <div class="stage-cell start-cell">{{ formatDate(stage.startedAt || stage.start) }}</div>
+          <div class="stage-cell finish-cell">{{ formatDate(stage.finishedAt || stage.finish) }}</div>
           <div class="stage-cell status-cell">
             <span
               :class="[
                 'status-badge',
-                getStatusClass(stage.status),
+                getStatusClass(stage.status || stage.status_work),
               ]"
             >
-              {{ stage.status || 'Не начат' }}
+              {{ stage.status || stage.status_work || 'Не начат' }}
             </span>
           </div>
           <div class="stage-cell arrow-cell">
             <svg
+              v-if="stage.name === 'Заготовка'"
               width="16"
               height="16"
               viewBox="0 0 16 16"
@@ -172,18 +199,18 @@ onMounted(() => {
             <span
               :class="[
                 'status-badge',
-                getStatusClass(stage.status),
+                getStatusClass(stage.status || stage.status_work),
               ]"
             >
-              {{ stage.status || 'Не начат' }}
+              {{ stage.status || stage.status_work || 'Не начат' }}
             </span>
           </div>
 
           <div class="card-content">
-            <p class="stage-executor">Исполнитель: {{ stage.executor || 'Не назначен' }}</p>
-            <p class="stage-stage">Этап: {{ stage.stage || 'Не указан' }}</p>
-            <p class="stage-start">Взял в работу: {{ stage.start || '-- -- ----' }}</p>
-            <p class="stage-finish">Закончил: {{ stage.finish || '-- -- ----' }}</p>
+            <p class="stage-executor">Исполнитель: {{ stage.who || 'Не назначен' }}</p>
+            <p v-if="stage.name === 'Заготовка'" class="stage-stage">Статус: {{ stage.status || stage.status_work || 'Не начат' }}</p>
+            <p class="stage-start">Взял в работу: {{ formatDate(stage.startedAt || stage.start) }}</p>
+            <p class="stage-finish">Закончил: {{ formatDate(stage.finishedAt || stage.finish) }}</p>
 
             <div class="card-actions">
               <button class="action-btn view-details-btn">
@@ -372,6 +399,7 @@ h1 {
   color: #ef5307;
 }
 
+.status-badge.готов,
 .status-badge.готово {
   background: rgba(8, 184, 29, 0.1);
   color: #08b81d;
@@ -419,6 +447,7 @@ h1 {
 .stage-finish {
   color: #666;
   margin-bottom: 8px;
+  font-size: 14px;
 }
 
 .card-actions {

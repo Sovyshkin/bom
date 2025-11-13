@@ -492,6 +492,14 @@ export interface ApiElementElement extends Struct.CollectionTypeSchema {
     revision: Schema.Attribute.String;
     rowAndAxis: Schema.Attribute.String;
     stage: Schema.Attribute.String;
+    status_work: Schema.Attribute.Enumeration<
+      [
+        '\u041D\u0435 \u043D\u0430\u0447\u0430\u0442',
+        '\u0412 \u0440\u0430\u0431\u043E\u0442\u0435',
+        '\u0413\u043E\u0442\u043E\u0432',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'\u041D\u0435 \u043D\u0430\u0447\u0430\u0442'>;
     structure: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -530,9 +538,18 @@ export interface ApiEtapZagotovkiEtapZagotovki
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    order: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     stageId: Schema.Attribute.String;
     start: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      [
+        '\u041D\u0435 \u043D\u0430\u0447\u0430\u0442',
+        '\u0412 \u0440\u0430\u0431\u043E\u0442\u0435',
+        '\u0413\u043E\u0442\u043E\u0432',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'\u041D\u0435 \u043D\u0430\u0447\u0430\u0442'>;
     status_work: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -557,12 +574,31 @@ export interface ApiEtapEtap extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     elementId: Schema.Attribute.String;
     finish: Schema.Attribute.DateTime;
+    finishedAt: Schema.Attribute.DateTime;
+    finishedBy: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::etap.etap'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    order: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     start: Schema.Attribute.DateTime;
+    startedAt: Schema.Attribute.DateTime;
+    startedBy: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    status: Schema.Attribute.Enumeration<
+      [
+        '\u041D\u0435 \u043D\u0430\u0447\u0430\u0442',
+        '\u0412 \u0440\u0430\u0431\u043E\u0442\u0435',
+        '\u0413\u043E\u0442\u043E\u0432',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'\u041D\u0435 \u043D\u0430\u0447\u0430\u0442'>;
     status_work: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -585,6 +621,7 @@ export interface ApiProektProekt extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    etap: Schema.Attribute.String;
     hasTechCard: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

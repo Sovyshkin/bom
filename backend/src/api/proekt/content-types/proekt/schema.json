@@ -27,6 +27,9 @@
     "status_work": {
       "type": "string"
     },
+    "etap": {
+      "type": "string"
+    },
     "hasTechCard": {
       "type": "boolean",
       "default": false
