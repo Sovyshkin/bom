@@ -60,7 +60,7 @@ const generateQR = async () => {
   }
   
   // Генерируем URL для QR-кода
-  const baseUrl = 'http://87.236.23.19'
+  const baseUrl = 'http://192.168.2.252'
   qrUrl.value = `${baseUrl}/qr/${proektId.value}/${elementId.value}/${stageId.value}`
   
   // Генерируем QR-код (используем простую библиотеку или внешний сервис)
